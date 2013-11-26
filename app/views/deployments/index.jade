@@ -1,0 +1,26 @@
+﻿extends ../layouts/default
+
+block main
+  h1= title
+  
+block content
+  - if (deployments.length)
+    - each deployment in deployments
+      .article
+        h3
+          a(href='/deployments/'+deployment._id+'/edit', title=deployment.sn) #{deployment.sn}
+        div.row
+          div.span3
+            p= '地区: ' + deployment.region
+          div.span3
+            p= '地址: ' + deployment.address
+        div.row
+          div.span3
+            p= '安装日期: ' + deployment.installDate
+          div.span3
+            p= '质控日期: ' + deployment.qcDate
+        p= '维护记录: ' + deployment.maintanceRecord
+        p= '备注: ' + deployment.remark
+        a.btn.btn-small.btn-info(href='/deployments/'+deployment._id+'/edit', title="edit") 编辑
+        &nbsp; &nbsp;
+        a.btn.btn-small.btn-danger(href='/deployments/remove?_id='+deployment._id, title="remove") 删除

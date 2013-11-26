@@ -1,0 +1,57 @@
+﻿extends ../layouts/default
+
+
+block main
+  h1= title
+  hr
+
+block content
+  - var action = '/deployments'
+  - action += deployment.isNew? '' : '/' + deployment.id
+  
+  .row
+    .span7
+      form.form-horizontal(method="post", action=action, enctype="multipart/form-data")
+        - if (!deployment.isNew)
+          input(type="hidden", name="_method", value="PUT")
+
+        .control-group
+          label.control-label(for='title') 编号
+          .controls
+            input#sn.input-xlarge(type='text', name="sn", value=deployment.sn, placeholder='Enter the sn')
+
+        .control-group
+          label.control-label(for='title') 地区
+          .controls
+            input#region.input-xlarge(type='text', name="region", value=deployment.region, placeholder='Enter the region')
+
+        .control-group
+          label.control-label(for='title') 地址
+          .controls
+            input#address.input-xlarge(type='text', name="address", value=deployment.address, placeholder='Enter the address')
+
+        .control-group
+          label.control-label(for='title') 安装时间
+          .controls
+            input#installDate.input-xlarge(type='text', name="installDate", value=deployment.installDate, placeholder='Enter the installDate')
+
+        .control-group
+          label.control-label(for='title') 质控时间
+          .controls
+            input#qcDate.input-xlarge(type='text', name="qcDate", value=deployment.qcDate, placeholder='Enter the qcDate')
+
+        .control-group
+          label.control-label(for='title') 维修记录
+          .controls
+            input#maintanceRecord.input-xlarge(type='text', name="maintanceRecord", value=deployment.maintanceRecord, placeholder='Enter the maintanceRecord')
+
+        .control-group
+          label.control-label(for='desc') 备注
+          .controls
+            textarea#remark.input-xlarge(type='text', rows="4", name="remark", placeholder='Enter the remark')=deployment.remark
+                        
+        .form-actions
+          button.btn.btn-primary(type='submit') 保存
+          &nbsp;
+          a.btn(href='/', title="cancel") 取消
+
